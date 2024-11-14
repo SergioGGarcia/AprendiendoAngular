@@ -1,0 +1,48 @@
+<div class="center">
+    <section id="content">
+
+        <h1 class="subheader">{{page_title}}</h1>
+
+        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit(articleForm)">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input id="title" type="text" name="title" #title="ngModel" [(ngModel)]="article.title" required />
+
+                <small *ngIf="!title.valid && title.touched">
+                    El título no es válido
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Biografia</label>
+                <textarea id="bio" name="content" #content="ngModel" [(ngModel)]="article.content" required></textarea>
+
+                <small *ngIf="!content.valid && content.touched">
+                    El contenido no es válido
+                </small>
+            </div>
+
+            <div class="form-group">
+
+                <div class="image-thumb" *ngIf="is_edit">
+                    <div class="image-wrap" *ngIf="article.image">
+                        <img src="{{url + 'get-image/' + article.image}}" alt="{{article.title}}" />
+                    </div>
+                    <div class="image-wrap" *ngIf="!article.image">
+                        <img src="../../../assets/images/default.png" alt="{{article.title}}" />
+                    </div>
+                </div>
+
+                <label for="image">Imagen</label>
+                <input id="image" type="file" (change)="imageUpload($event)" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="articleForm.invalid" />
+        </form>
+
+    </section>
+
+    <app-sidebar></app-sidebar>
+</div>
